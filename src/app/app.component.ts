@@ -7,7 +7,7 @@ import * as atlas from 'azure-maps-control';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'whenbuilt';
+  title = 'When Built';
 
   constructor() {
 
