@@ -1,4 +1,5 @@
-import { APP_BOOTSTRAP_LISTENER, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import * as atlas from 'azure-maps-control';
 
 @Component({
@@ -7,13 +8,22 @@ import * as atlas from 'azure-maps-control';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'When Built';
+  public title: string = 'When Built'; 
 
-  constructor() {
+  constructor(public translate: TranslateService, 
+    ) {
+        translate.addLangs(['en','fr']);
+        translate.setDefaultLang('en');
+        const browserLang = translate.getBrowserCultureLang();
+        translate.use(browserLang?.match(/en|fr/) ? browserLang : 'en');
 
   }
   ngOnInit(): void {
 
+  }
+
+  public selectLanguage(event: any) {
+      this.translate.use(event.target.value);
   }
 
   getPosition(): Promise<any>{
