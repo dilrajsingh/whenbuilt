@@ -30,8 +30,8 @@
               "src/favicon.ico",
               "src/assets",
               {
-                "input": "../",
                 "glob": "*.config",
+                "input": "./",
                 "output": "."
               }
             ],
