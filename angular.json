@@ -29,7 +29,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "web.config"
+              {
+                "input": "../",
+                "glob": "*.config",
+                "output": "."
+              }
             ],
             "styles": [
               "src/styles.scss"
