@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import * as atlas from 'azure-maps-control';
 import { LoaderService } from './services/loader.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit(): void {
-
+    if (environment.production) {
+      console.log('production');
+    }
+    console.log('ngOnInit');
   }
 
   public selectLanguage(event: any) {
