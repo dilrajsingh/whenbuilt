@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import * as atlas from 'azure-maps-control';
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private sub;
   constructor(public translate: TranslateService, 
-              private titleService: Title
+              private titleService: Title,
+              public loader: LoaderService
     ) {
         translate.addLangs(['en','fr', 'es', 'de']);
         translate.setDefaultLang('en');

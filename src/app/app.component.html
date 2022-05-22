@@ -3,11 +3,13 @@
         <label>
           {{ 'HOME.SELECT' | translate }}
           <select #langSelect (change)="translate.use(langSelect.value)">
-            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
+            <option *ngFor="let lang of translate.getLangs()" [lang]="lang" [value]="lang" [selected]="lang === translate.currentLang">
                 {{ 'language.'+ lang | translate }}
-            </option>z
+            </option>
           </select>
         </label>
     </section>
+    <div *ngIf="loader.isLoading | async" id="loader"></div>
+    <app-navbar></app-navbar>
 
 </main>
