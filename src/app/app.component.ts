@@ -4,6 +4,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import * as atlas from 'azure-maps-control';
 import { LoaderService } from './services/loader.service';
 import { environment } from 'src/environments/environment';
+import { GoogleAnalyticsService } from './services/google-analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private sub;
   constructor(public translate: TranslateService, 
               private titleService: Title,
-              public loader: LoaderService
+              public loader: LoaderService,
+              private googleAnalyticsService: GoogleAnalyticsService
     ) {
         translate.addLangs(['en','fr', 'es', 'de']);
         translate.setDefaultLang('en');
@@ -30,9 +32,9 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     if (environment.production) {
-      console.log('production');
+      console.log('production mode');
+      this.googleAnalyticsService.initialize();
     }
-    console.log('ngOnInit');
   }
 
   public selectLanguage(event: any) {
