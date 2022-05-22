@@ -5,5 +5,11 @@
   },
   "nav": {
     "whenBuilt": "Cuando se construye"
+  },
+  "language": {
+    "en": "Inglés",
+    "fr": "Francés",
+    "de": "Alemán",
+    "es": "Español"
   }
 }

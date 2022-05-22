@@ -5,5 +5,11 @@
     },
     "nav": {
       "whenBuilt": "Une fois construit"
+    },
+    "language": {
+      "en": "Anglais",
+      "fr": "Français",
+      "de": "Allemand",
+      "es": "Espagnol"
     }
   }
