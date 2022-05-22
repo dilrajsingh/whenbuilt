@@ -1,0 +1,15 @@
+{
+  "HOME": {
+    "TITLE": "Hallo Angular mit ngx-translate!",
+    "SELECT": "Sprache ändern"
+  },
+  "nav": {
+    "whenBuilt": "Wenn Gebaut"
+  },
+  "language": {
+    "en": "Englisch",
+    "fr": "Französisch",
+    "de": "Deutsch",
+    "es": "Spanisch"
+  }
+}

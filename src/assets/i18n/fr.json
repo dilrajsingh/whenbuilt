@@ -1,7 +1,15 @@
 {
     "HOME": {
-      "TITLE": "Bonjour Angular avec ngx-translate !",
-      "SELECT": "Changer la langue"
+      "TITLE": "Bonjour Angular avec ngx-translate !",
+      "SELECT": "Changer de langue"
+    },
+    "nav": {
+      "whenBuilt": "Une fois construit"
+    },
+    "language": {
+      "en": "Anglais",
+      "fr": "Français",
+      "de": "Allemand",
+      "es": "Espagnol"
     }
-}
-  
+  }

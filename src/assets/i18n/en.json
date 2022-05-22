@@ -1,0 +1,15 @@
+{
+    "HOME": {
+      "SELECT": "Change language"
+    },
+    "nav": {
+        "whenBuilt": "When Built"
+    },
+    "language": {
+      "en": "English",
+      "fr": "French",
+      "de": "German",
+      "es": "Spanish"
+    }
+}
+  
