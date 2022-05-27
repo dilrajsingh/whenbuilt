@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import * as atlas from 'azure-maps-control';
 import { LoaderService } from './services/loader.service';
 import { environment } from 'src/environments/environment';
 import { GoogleAnalyticsService } from './services/google-analytics.service';
@@ -39,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public selectLanguage(event: any) {
       this.translate.use(event.target.value);
-}
+  }
 
   getPosition(): Promise<any>{
     return new Promise((resolve, reject) => {
