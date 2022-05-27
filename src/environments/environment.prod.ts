@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  googleAnalyticsId: 'G-WZFHT7CWE1',
+  googleAnalyticsId: 'SECRET_VAR1',
+  googleMapKey: 'SECRET_VAR2'
 };
