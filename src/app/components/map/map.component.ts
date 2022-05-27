@@ -5,6 +5,7 @@ import { MapMarker, MapInfoWindow, GoogleMap } from "@angular/google-maps";
 
 import { } from '@angular/google-maps';
 import { catchError, map, Observable, of } from 'rxjs';
+import { timezoneMap } from 'src/app/data/internationalizationZones';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,7 +19,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     public markerPositions: google.maps.LatLngLiteral[] = [];
     public markers: any[] = []
 
-    public center: google.maps.LatLngLiteral = { lat: 30, lng: -110 };
+     
+    public center: google.maps.LatLngLiteral = { 
+        lat: 37.7749295,  // San francisco why not
+        lng: -122.4194155 
+    };
 
     public options: google.maps.MapOptions = {
         zoom: 9,
@@ -55,12 +60,33 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
     
     private getCurrentLocation(): void {
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.center = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
+        // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/permissions
+        navigator?.permissions?.query({name:'geolocation'}).then((result) => {
+            if (result.state === 'prompt' || result.state === 'denied' ) {
+                this.getLocationByTimeZone();
             }
-        })
+        });
+
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.center = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                }
+            });
+        }
+    }
+
+    private getLocationByTimeZone(): void {
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        console.log('---->' + timezoneMap, timezoneMap[timezone].latitude)
+        if (timezone && timezoneMap[timezone]?.latitude && timezoneMap[timezone]?.longitude) {
+            this.center = {
+                lat: timezoneMap[timezone].latitude ?? this.center.lat,
+                lng: timezoneMap[timezone].longitude ?? this.center.lng
+            }
+        }
     }
 
     
