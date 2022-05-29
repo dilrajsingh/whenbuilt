@@ -118,7 +118,7 @@ export const timezoneMap: { [key: string]: CityDetails } = {
     'America/Fort_Nelson': {},
     'America/Vancouver': {
         latitude: 49.2827,
-        longitude: 123.1207
+        longitude: -123.1207
     },
     'America/Whitehorse': {},
     'America/Dawson': {},
@@ -237,7 +237,7 @@ export const timezoneMap: { [key: string]: CityDetails } = {
     'Indian/Maldives': {},
     'America/Mexico_City': {
         latitude: 19.4326,
-        longitude: 99.1332
+        longitude: -99.1332
     },
     'America/Cancun': {},
     'America/Merida': {},
