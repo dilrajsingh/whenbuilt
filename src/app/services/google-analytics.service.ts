@@ -40,8 +40,7 @@ export class GoogleAnalyticsService {
         gtag('config', environment.googleAnalyticsId, {
           page_path: event.urlAfterRedirects,
         });
-        console.log('Sending Google Analytics tracking for: ', event.urlAfterRedirects);
-        console.log('Google Analytics property ID: ', environment?.googleAnalyticsId);
+        // console.log('Sending Google Analytics tracking for: ', event.urlAfterRedirects);
       }
     });
   }

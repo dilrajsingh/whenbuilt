@@ -1,0 +1,21 @@
+<div *ngIf="apiLoaded | async">
+    <google-map
+        width="100%" 
+        [options]="options" 
+        [center]="center" 
+        (mapClick)="addMarker($event)">
+
+        <map-marker-clusterer [imagePath]="markerClustererImagePath.toString()">
+
+            <map-marker *ngFor="let marker of markers" 
+                [position]="marker.position" 
+                [label]="marker.label"
+                [title]="marker.title" 
+                [options]="markerOptions" 
+                [icon]="marker.icon">
+            </map-marker>
+        </map-marker-clusterer>
+
+    </google-map>
+</div>
+
