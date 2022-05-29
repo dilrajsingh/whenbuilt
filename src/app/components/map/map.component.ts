@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-import { MapMarker, MapInfoWindow, GoogleMap } from "@angular/google-maps";
-
+import { MapMarker, MapInfoWindow, GoogleMap, MapMarkerClusterer } from "@angular/google-maps";
 import { } from '@angular/google-maps';
 import { catchError, map, Observable, of } from 'rxjs';
 import { timezoneMap } from 'src/app/data/internationalizationZones';
@@ -13,13 +12,29 @@ import { environment } from 'src/environments/environment';
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, AfterViewChecked{
+    @ViewChild(GoogleMap) map: GoogleMap;
+    @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
+    @ViewChild(MapMarker, { static: false }) mapMarkerMapMarker: MapMarker;
+    @ViewChild(MapMarkerClusterer) clusters: MapMarkerClusterer;
+
+
     public apiLoaded: Observable<boolean>;
 
-    public markerPositions: google.maps.LatLngLiteral[] = [];
-    public markers: any[] = []
 
-     
+    /** Marker items */
+    public markerOptions: google.maps.MarkerOptions = { //used directly by <map-marker [options]>
+        draggable: false,
+        animation: 4
+    };
+    public markers:  any[] = []; // technically google.maps.Marker[]
+
+    /** Mark clusterer */
+    public readonly markerClustererImagePath: URL = new URL('https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m');
+
+
+
+    /**Map items */
     public center: google.maps.LatLngLiteral = { 
         lat: 37.7749295,  // San francisco why not
         lng: -122.4194155 
@@ -31,10 +46,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     };
 
-    // @ViewChild(GoogleMap, { static: false }) map: GoogleMap;
-    // @ViewChild(MapInfoWindow, { static: false }) infoWindow: MapInfoWindow;
-    // @ViewChild(MapMarker, { static: false }) mapMarkerMapMarker: MapMarker;
-
 
     constructor(private readonly httpClient: HttpClient) {
         this.loadApiOnly();
@@ -45,6 +56,9 @@ export class MapComponent implements OnInit, AfterViewInit {
     }
     
     ngAfterViewInit() {
+    }
+
+    ngAfterViewChecked() {
     }
 
     public loadApiOnly() {
@@ -89,5 +103,51 @@ export class MapComponent implements OnInit, AfterViewInit {
         }
     }
 
-    
+    /** Code inspiration from:
+     *   https://stackoverflow.com/questions/32437865/android-google-map-marker-placing marker offset
+     *   https://developers.google.com/android/reference/com/google/android/gms/maps/model/MarkerOptions#MarkerOptions()
+    */
+    addMarker(event?: google.maps.MapMouseEvent) {
+
+
+        function randomNumber(min: number, max: number): number {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+            
+        }
+
+        console.log(event?.latLng?.toJSON());
+        const iconBase = "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+
+        const icons: Record<string, { icon: string }> = {
+            parking: {
+                icon: iconBase + "parking_lot_maps.png",
+            },
+            library: {
+                icon: iconBase + "library_maps.png",
+            },
+            info: {
+                icon: iconBase + "info-i_maps.png",
+            },
+        };
+
+        if (event) {
+            const myMarker: google.maps.Marker = new google.maps.Marker();
+            myMarker.setPosition({
+                lat: this.center.lat + ((Math.random() - 0.5) * 2) / 10,
+                lng: this.center.lng + ((Math.random() - 0.5) * 2) / 10,
+            });
+            myMarker.setLabel({
+                color: 'red',
+                text: 'Marker label ' + (this.markers.length + 1),
+            })
+            myMarker.setTitle('Marker title ' + (this.markers.length + 1));
+            // myMarker.setOptions(this.markerOptions); // this will not work with Marker type.
+            const iconImageType = ['parking', 'info', 'library'][randomNumber(0,2)];
+            console.log(icons[iconImageType]);
+            myMarker.setIcon(icons[iconImageType].icon);
+            this.markers.push(myMarker);
+        }
+    }
+
+
 }
